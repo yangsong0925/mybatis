@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<!-- 驼峰命名法 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- 打印查询语句 -->
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
+
+	<typeAliases>
+		<package name="com.syys.web.dao.entity" />
+	</typeAliases>
+
+	<typeHandlers>
+		<!--EnumOrdinalTypeHandler：使用枚举字符串名称作为参数传递。-->
+		<!--EnumTypeHandler：使用整数下标作为参数传递。-->
+		<!--<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" />-->
+		<!--<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" />-->
+		<typeHandler handler="com.syys.web.dao.EnumHandler.UserSexTypeHandler" javaType="com.syys.web.base.enums.UserSex"/>
+		<!--<typeHandler handler="com.syys.web.dao.EnumHandler.UserSexTypeHandler" javaType="com.syys.web.base.enums.UserSex"/>-->
+	</typeHandlers>
+
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<!-- 数据库方言 -->
+			<property name="dialect" value="mysql"/>
+			<property name="offsetAsPageNum" value="false"/>
+			<property name="rowBoundsWithCount" value="false"/>
+			<property name="pageSizeZero" value="true"/>
+			<property name="reasonable" value="false"/>
+			<property name="supportMethodsArguments" value="false"/>
+			<property name="returnPageInfo" value="none"/>
+		</plugin>
+	</plugins>
+
+</configuration>
