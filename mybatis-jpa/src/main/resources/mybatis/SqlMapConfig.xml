@@ -15,4 +15,9 @@
 		<package name="com.syys.web.dao.entity" />
 	</typeAliases>
 
+	<plugins>
+		<plugin interceptor="com.mybatis.jpa.plugin.ResultTypePlugin">
+		</plugin>
+	</plugins>
+
 </configuration>

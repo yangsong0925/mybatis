@@ -3,7 +3,11 @@
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
-  <display-name>mybatis-non-annotation</display-name>
+  <display-name>mybatis-jpa</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
   <!-- post乱码过滤器 -->
   <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
@@ -13,7 +17,6 @@
       <param-value>utf-8</param-value>
     </init-param>
   </filter>
-
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -21,13 +24,13 @@
 
   <!-- 前端控制器 -->
   <servlet>
-    <servlet-name>mybatis-non-annotation</servlet-name>
+    <servlet-name>mybatis-jpa</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <!-- contextConfigLocation不是必须的，
         默认加载必须规范：
             * 文件命名：servlet-name + "-servlet.xml" -->  mybatis-non-annotation-servlet.xml
-    * 路径规范：必须在WEB-INF下
-    -->
+            * 路径规范：必须在WEB-INF下
+     -->
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:spring/spring-mvc.xml</param-value>
@@ -36,7 +39,7 @@
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>mybatis-non-annotation</servlet-name>
+    <servlet-name>mybatis-jpa</servlet-name>
     <!-- 拦截所有请求jsp除外 -->
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
@@ -49,7 +52,5 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+
 </web-app>
