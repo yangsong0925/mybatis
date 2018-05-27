@@ -4,6 +4,7 @@ import com.syys.web.dao.entity.Order;
 import com.syys.web.dao.entity.OrderDetail;
 import com.syys.web.dao.entity.User;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface OrderMapper {
             @Result(id=true,property="id",column="id"),
             @Result(property="name",column="name"),
             @Result(property="user",column="user_id",javaType=User.class,one=@One(select="com.syys.web.dao.mapper.UserMapper.findByid")),
-            @Result(property="orderDetails",column="id",javaType=List.class,many=@Many(select="com.syys.web.dao.mapper.OrderMapper.findDetailByOrderId"))
+            @Result(property="orderDetails",column="id",javaType=List.class,many=@Many(select="com.syys.web.dao.mapper.OrderMapper.findDetailByOrderId",fetchType = FetchType.LAZY))
     })
     Order findByIdAndUserAndOrderDetail(int orderId);
 
