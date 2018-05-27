@@ -38,6 +38,13 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
+		<property name="mapperLocations">
+			<array>
+				<!--BindingException: Invalid bound statement (not found): com.syys.web.dao.mapper.UserMapper.addUsers-->
+				<!--<value>classpath:com/syys/web/dao/mapper/**/*.xml</value> 	引发上述异常-->
+				<value>classpath*:mapper/**/*.xml</value>
+			</array>
+		</property>
 	</bean>
 
 	<!--  批量Mapper映射文件的包扫描器

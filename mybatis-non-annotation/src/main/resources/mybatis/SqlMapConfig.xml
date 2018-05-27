@@ -9,9 +9,17 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 		<!-- 打印查询语句 -->
 		<setting name="logImpl" value="STDOUT_LOGGING" />
+		<!--useGeneratedKeys 取值范围true|false 默认值是：false。 含义：设置是否使用JDBC的getGenereatedKeys方法获取主键并赋值到keyProperty设置的领域模型属性中。-->
+		<!--<setting name="useGeneratedKeys" value="true"/>-->
 	</settings>
 
+	<!-- 自定义别名 -->
 	<typeAliases>
+		<!--单个别名定义-->
+		<!--<typeAlias type="com.syys.web.dao.entity.User" alias="User"/>-->
+
+		<!--批量别名定义(推荐)-->
+		<!--package: 指定包名称，为包名称下的po类声明别名，默认的别名就是类名(首字母大小写都可)-->
 		<package name="com.syys.web.dao.entity" />
 	</typeAliases>
 
@@ -36,5 +44,10 @@
 			<property name="returnPageInfo" value="none"/>
 		</plugin>
 	</plugins>
+
+	<!--全局配置文件中加载映射文件-->
+	<!--<mappers>-->
+		<!--<mapper resource="url/**/*.xml"></mapper>-->
+	<!--</mappers>-->
 
 </configuration>

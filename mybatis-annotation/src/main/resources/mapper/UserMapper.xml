@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syys.web.dao.mapper.UserMapper" >
+
+  <resultMap id="BaseResultMap" type="com.syys.web.dao.entity.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="passWord" property="password" jdbcType="VARCHAR" />
+    <!--typeHandler="org.apache.ibatis.type.EnumTypeHandler"-->
+    <result column="user_sex" property="userSex" jdbcType="VARCHAR" typeHandler="com.syys.web.dao.EnumHandler.UserSexTypeHandler" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <!--      <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<    INSERT    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>     -->
+  <!--返回影响行数-->
+  <!--通过 OGNL 获取实体对应字段的属性值-->
+  <!--<insert id="addUser" parameterType="user" >-->
+    <!--INSERT INTO T_USER (ID,USERNAME,PASSWORD,USER_SEX,NICK_NAME)-->
+    <!--VALUE (#{id},#{username},#{password},#{userSex,typeHandler=com.syys.web.dao.EnumHandler.UserSexTypeHandler},#{nickName})-->
+  <!--</insert>-->
+
+  <!-- 主键自增-自增主键 -->
+  <!--selectKey: 查询主键，在标签内需要输入查询主键id的sql
+    order: 指定查询主键的sql和insert语句的执行顺序，相当与 insert 语句来说
+      AFTER：自增后查询自增的id插入实体，before:先查询id，将id set 实体，然后insert
+      id: 不是自增就需要显示的赋值。只有自增是 AFTER.
+  -->
+  <!--<insert id="addUser" parameterType="user" >-->
+    <!--<selectKey keyProperty="id" resultType="String" order="AFTER">-->
+      <!--LAST_INSERT_ID(): 该函数是 mysql 的函数，获取自增逐渐的 ID,必须配合insert使用-->
+      <!--SELECT LAST_INSERT_ID()-->
+    <!--</selectKey>-->
+    <!--INSERT INTO T_USER (USERNAME,PASSWORD,USER_SEX,NICK_NAME)-->
+    <!--VALUE (#{username},#{password},#{userSex,typeHandler=com.syys.web.dao.EnumHandler.UserSexTypeHandler},#{nickName})-->
+  <!--</insert>-->
+
+  <!-- 主键自增-UUID主键 -->
+  <!--<insert id="addUser" parameterType="user" >-->
+    <!--<selectKey keyProperty="id" resultType="String" order="BEFORE">-->
+      <!--SELECT UUID()-->
+    <!--</selectKey>-->
+    <!--INSERT INTO T_USER (id,USERNAME,PASSWORD,USER_SEX,NICK_NAME)-->
+    <!--VALUE (#{id},#{username},#{password},#{userSex,typeHandler=com.syys.web.dao.EnumHandler.UserSexTypeHandler},#{nickName})-->
+  <!--</insert>-->
+
+  <!-- 主键自增-序列主键 序列 Oracle 主键生成策略 -->
+  <insert id="addUser" parameterType="user" >
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+    SELECT seq.nextval from dual
+    </selectKey>
+    INSERT INTO T_USER (id,USERNAME,PASSWORD,USER_SEX,NICK_NAME)
+    VALUE (#{id},#{username},#{password},#{userSex,typeHandler=com.syys.web.dao.EnumHandler.UserSexTypeHandler},#{nickName})
+  </insert>
+
+
+  <!--      <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<    SELECT    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>     -->
+  <!--select: 表示一个MappedStatement对象-->
+  <!--id: statement的唯一标示-->
+  <!--#{}: 表示一个占位符 ?-->
+  <!--#{id}: id的表示输入参数的参数名称， 参数事简单类型，#{}参数名称可以任意-->
+  <!--parameterType: 输入参数类型-->
+  <!--resultType: 输出结果的所映射的java类型（单条结果所对应的java类型）-->
+  <select id="findUserById" parameterType="string" resultType="com.syys.web.dao.entity.User">
+    SELECT * FROM T_USER WHERE ID = #{id}
+  </select>
+
+  <!--<select id="findUserByLikeUsername" parameterType="string" resultType="User">-->
+      <!--bind 元素可以从 OGNL 表达式中创建一个变量并将其绑定到上下文。类于concat 字符串拼接-->
+      <!--name 为绑定到上下文的变量名， va l ue 为 OGNL 表达式。简单类型必须是 _parameter获取值-->
+      <!--bind 拼接字符串可以避免因更换数据库而修改 SQL，也能预防 SQL 注入。-->
+      <!--<bind name="usernameLike" value="'%' + _parameter  + '%'" />-->
+      <!--SELECT * FROM T_USER WHERE USERNAME like #{usernameLike}-->
+  <!--</select>-->
+
+  <!--${}: 表示一个sql连接符-->
+  <!--${value}: value代表参数名称，如果是简单类型，里面必须是value-->
+  <!--${}写法存在sql注入的风险，慎用！某些场景下，必须使用${},eg:排序，动态传入排序的列名-->
+  <select id="findUserByLikeUsername" parameterType="string" resultType="User">
+    <bind name="usernameLike" value="'%' + _parameter  + '%'" />
+    SELECT * FROM T_USER WHERE USERNAME like '%${value}%'
+  </select>
+
+</mapper>

@@ -38,21 +38,21 @@
 
 	<!-- 多媒体解析器 -->
 	<!-- 配置文件上传解析器 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 设定默认编码 -->
-		<property name="defaultEncoding" value="UTF-8"></property>
-		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
-		<property name="maxUploadSize" value="5242880"></property>
-	</bean>
+	<!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+		<!--&lt;!&ndash; 设定默认编码 &ndash;&gt;-->
+		<!--<property name="defaultEncoding" value="UTF-8"></property>-->
+		<!--&lt;!&ndash; 设定文件上传的最大值5MB，5*1024*1024 &ndash;&gt;-->
+		<!--<property name="maxUploadSize" value="5242880"></property>-->
+	<!--</bean>-->
 
-	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
-				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</prop>
-			</props>
-		</property>
-	</bean>
+	<!--<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+		<!--<property name="exceptionMappings">-->
+			<!--<props>-->
+				<!--&lt;!&ndash; 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 &ndash;&gt;-->
+				<!--<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</prop>-->
+			<!--</props>-->
+		<!--</property>-->
+	<!--</bean>-->
 
 	<!-- 用于返回json格式 -->
 	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -64,4 +64,16 @@
 		</property>
 	</bean>
 
+	<!--spring mvc4.x json配置改变-->
+    <!--使用之前版本的json包（1.x）会出java.lang.NoClassDefFoundError: com/fasterxml/jackson/core/util/DefaultPrettyPrinter$Indenter错误。-->
+    <!--新用到包为 jackson-annotations-2.5.0.jar，jackson-core-2.5.0.jar，jackson-databind-2.5.0.jar-->
+	<bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>text/json;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
 </beans>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syys.web.dao.mapper.CallMapper" >
+
+    <!-- statementType 声明指向的是什么类型，其中CALLABLE是执行存储过程和函数的
+        map 封装参数，   输入输出分装成map，程序输出结果也被分装到map中
+    -->
+    <!-- 定义存储过程 -->
+    <select id="callProcedure" parameterType="map" statementType="CALLABLE">
+        {
+            call test_1_out(
+            #{out_coun_num,mode=OUT,jdbcType=NUMERIC}
+            )
+        }
+    </select>
+
+    <!-- 定义函数 -->
+    <select id="callFunction" parameterType="map" statementType="CALLABLE">
+        {
+            #{p3,mode=OUT,jdbcType=NUMERIC}=call fun_add(
+            #{p1,mode=IN,jdbcType=NUMERIC},
+            #{p2,mode=IN,jdbcType=NUMERIC}
+            )
+        }
+    </select>
+
+</mapper>

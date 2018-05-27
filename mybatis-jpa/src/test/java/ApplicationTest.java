@@ -22,6 +22,7 @@ public class ApplicationTest {
 
     @Test
     public void fun01(){
+        System.out.println(userMapper);
         User user = new User();
         user.setNickName("无敌帅");
         user.setPassword("111");
