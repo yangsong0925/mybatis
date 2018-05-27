@@ -1,6 +1,8 @@
 import com.syys.web.base.enums.UserSex;
+import com.syys.web.dao.entity.Order;
 import com.syys.web.dao.entity.User;
 import com.syys.web.dao.mapper.CallMapper;
+import com.syys.web.dao.mapper.OrderMapper;
 import com.syys.web.dao.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +25,8 @@ public class ApplicationTest {
     private UserMapper userMapper;
     @Resource
     private CallMapper callMapper;
+    @Resource
+    private OrderMapper orderMapper;
 
     @Test
     public void add(){
@@ -106,4 +110,17 @@ public class ApplicationTest {
         user.setPassword("mmp");
         userMapper.insertProvider(user);
     }
+
+    //   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<    一对一    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void oneToOne(){
+        System.out.println(orderMapper.findByIdAndUser(1));
+    }
+
+    @Test
+    public void oneToMany(){
+        Order order = orderMapper.findByIdAndUserAndOrderDetail(1);
+        System.out.println(order);
+    }
+
 }
