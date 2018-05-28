@@ -3,13 +3,11 @@ package com.syys.web.dao.entity;
 
 import com.syys.web.enums.UserSex;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class User {
+@Table(name = "t_user")
+public class User{
     @Id
     private String id;
 

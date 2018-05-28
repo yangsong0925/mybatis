@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
-
+@Mapper
 public interface OrderMapper {
 
     //   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<    一对一    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

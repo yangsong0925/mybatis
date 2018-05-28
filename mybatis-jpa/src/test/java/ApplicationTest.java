@@ -5,10 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Log4jConfigurer;
 
 import javax.annotation.Resource;
-import java.io.FileNotFoundException;
 
 /**
  * Created by ys on 2018/5/23
@@ -28,7 +26,7 @@ public class ApplicationTest {
         user.setPassword("111");
         user.setUsername("ys");
         user.setUserSex(UserSex.MAN);
-        System.out.println(userMapper.addUser(user));
+        System.out.println(userMapper.insert(user));
     }
 
 }

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 
+@Mapper
 public interface UserMapper {
 
     String SELECT_ID = "SELECT ID T_ID,USERNAME T_USERNAME,PASSWORD T_PASSWORD,NICK_NAME T_NICK_NAME,USER_SEX T_USER_SEX FROM T_USER WHERE id = #{id}";
